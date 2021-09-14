@@ -1,0 +1,18 @@
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+	"email":"thinhdepzai@gmail.com",
+	"password": "asd"
+}
+###
+GET http://localhost:3000/auth/1
+###
+GET http://localhost:3000/auth?email=thinhdepzai@gmail.com
+###
+PATCH  http://localhost:3000/auth/1
+Content-Type: application/json
+
+{
+	"email":"asdoij@gmail.com"
+}
