@@ -13,6 +13,9 @@ export class UsersService {
   }
 
   fineOne(id: number) {
+    if (!id) {
+      return null;
+    }
     return this.repo.findOne(id);
   }
 

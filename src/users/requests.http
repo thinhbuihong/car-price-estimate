@@ -2,11 +2,23 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-	"email":"thinhdepzai@gmail.com",
+	"email":"thinhdepzadddi@gmail.com",
 	"password": "asd"
 }
+###signin
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+	"email":"thinhdepzadddi@gmail.com",
+	"password": "asd"
+}
+###who am i
+GET  http://localhost:3000/auth/whoami
+###signout
+POST   http://localhost:3000/auth/signout
 ###
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/2
 ###
 GET http://localhost:3000/auth?email=thinhdepzai@gmail.com
 ###
