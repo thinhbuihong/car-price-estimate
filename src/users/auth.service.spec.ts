@@ -8,10 +8,21 @@ describe('AuthService', () => {
   let fakeUsersService: Partial<UsersService>;
 
   beforeEach(async () => {
+    const users: User[] = [];
     fakeUsersService = {
-      find: () => Promise.resolve([]),
-      create: (email: string, password: string) =>
-        Promise.resolve({ id: 1, email, password } as User),
+      find: (email: string) => {
+        const filteredUsers = users.filter((user) => user.email === email);
+        return Promise.resolve(filteredUsers);
+      },
+      create: (email: string, password: string) => {
+        const user = {
+          id: Math.floor(Math.random() * 999),
+          email,
+          password,
+        } as User;
+        users.push(user);
+        return Promise.resolve(user);
+      },
     };
 
     const module = await Test.createTestingModule({
@@ -39,12 +50,32 @@ describe('AuthService', () => {
     expect(hash).toBeDefined();
   });
 
-  it('signup with email that is in used', (done) => {
-    fakeUsersService.find = () =>
-      Promise.resolve([
-        { id: 1, email: 'asd@gmail.com', password: 'asd' } as User,
-      ]);
+  it('signin with wrong email', (done) => {
+    service.signin('asd@gmail.com', 'asd').catch(() => done());
+  });
 
-    service.signup('asd@gmail.com', 'qwe').catch(() => done());
+  it('signin with invalid password', async () => {
+    await service.signup('asd1@gmail.com', 'asd');
+
+    try {
+      await service.signin('asd1@gmail.com', 'asd');
+    } catch (err) {
+      expect(err).toBeDefined();
+    }
+  });
+  it('signup with email that is in used', async () => {
+    await service.signup('asd@gmail.com', 'asd');
+
+    try {
+      service.signup('asd@gmail.com', 'qwe');
+    } catch (err) {
+      expect(err).toBeDefined();
+    }
+  });
+
+  it('signin sussesfully', async () => {
+    // await service.signup('asd2@gmail.com', 'asd');
+    // const user = await service.signin('asd2@gmail.com', 'asd');
+    // expect(user).toBeDefined();
   });
 });
