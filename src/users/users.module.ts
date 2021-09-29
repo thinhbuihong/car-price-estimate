@@ -13,6 +13,7 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptors
   providers: [
     UsersService,
     AuthService,
+    // CurrentUserInterceptor,
     {
       useClass: CurrentUserInterceptor,
       provide: APP_INTERCEPTOR,
