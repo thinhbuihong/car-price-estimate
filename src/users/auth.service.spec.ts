@@ -58,7 +58,7 @@ describe('AuthService', () => {
     await service.signup('asd1@gmail.com', 'asd');
 
     try {
-      await service.signin('asd1@gmail.com', 'asd');
+      await service.signin('asd1@gmail.com', 'asde');
     } catch (err) {
       expect(err).toBeDefined();
     }
