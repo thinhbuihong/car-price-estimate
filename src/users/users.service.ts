@@ -23,7 +23,7 @@ export class UsersService {
     return this.repo.find({ email });
   }
 
-  async update(id: number, attrs: Partial<User>) {
+  async update(id: number, attrs: Omit<Partial<User>, 'id'>) {
     const user = await this.findOne(id);
     if (!user) {
       throw new NotFoundException('user not found');
@@ -37,6 +37,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('user not found');
     }
+    //if use delete => delete tu database ko call hooks trong entity
     return this.repo.remove(user);
   }
 }

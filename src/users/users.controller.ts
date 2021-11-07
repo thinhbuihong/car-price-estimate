@@ -17,13 +17,16 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorators';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { userDto } from './dtos/user..dto';
+import { userDto } from './dtos/user.dto';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 
 @Controller('auth')
 @Serialize(userDto)
 // @UseInterceptors(CurrentUserInterceptor)
+//docs cua nest dung ClassSeralizerInterceptor
+// su dung entity thi request nao cung tra ve giong nhau
+//trong khi co luc se can data khac nhau
 export class UsersController {
   constructor(
     private userService: UsersService,
@@ -57,7 +60,7 @@ export class UsersController {
 
   @Get('/:id')
   async findUser(@Param('id') id: string) {
-    const user = await this.userService.findOne(parseInt(id));
+    const user = await this.userService.findOne(+id);
     if (!user) {
       throw new NotFoundException('user not found');
     }
@@ -71,7 +74,7 @@ export class UsersController {
 
   @Delete()
   removeUser(@Param('id') id: string) {
-    return this.userService.remove(parseInt(id));
+    return this.userService.remove(+id);
   }
 
   @Patch('/:id')
