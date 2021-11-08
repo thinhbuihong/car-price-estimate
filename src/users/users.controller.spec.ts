@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersController } from './users.controller';
-import { User } from './users.entity';
+import { User } from './entities/users.entity';
 import { UsersService } from './users.service';
 
 describe('UsersController', () => {

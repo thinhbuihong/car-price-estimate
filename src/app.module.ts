@@ -16,6 +16,9 @@ import session from 'express-session';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRoot(),
+    //su dung env variable trong configmodule
+    //typeorm cli need these options too
+    //===============================
     // TypeOrmModule.forRootAsync({
     //   inject: [ConfigService],
     //   useFactory: (config: ConfigService) => {

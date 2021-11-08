@@ -1,18 +1,26 @@
 module.exports = {
-	type: 'postgres',
-	host: 'localhost',
-	port: 5432,
-	username: 'postgres',
-	password: 'buihongthinh',
-	database: 'didb',
-	entities: process.env.NODE_ENV === 'development'
+	...(process.env.NODE_ENV === 'test' ?
+		{
+			type: 'sqlite',
+			database: 'test.sqlite',
+			synchronize: true,
+		} : {
+			type: 'postgres',
+			host: 'localhost',
+			port: 5432,
+			username: 'postgres',
+			password: 'buihongthinh',
+			database: 'didb',
+			synchronize: false,
+		}),
+	//in test env , test runer chi find trong src
+	entities: process.env.NODE_ENV === 'test'
 		?
-		['**/*.entity.js'] :
-		['**/*.entity.ts']
+		['**/*.entity.ts'] :
+		['**/*.entity.js']
 	,
 	migrations: ["./dist/migration/*.js"],
 	"cli": {
 		"migrationsDir": "migration"
 	},
-	synchronize: false,
 }

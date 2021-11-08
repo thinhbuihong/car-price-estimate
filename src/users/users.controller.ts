@@ -18,7 +18,7 @@ import { CurrentUser } from './decorators/current-user.decorators';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { userDto } from './dtos/user.dto';
-import { User } from './users.entity';
+import { User } from './entities/users.entity';
 import { UsersService } from './users.service';
 
 @Controller('auth')
