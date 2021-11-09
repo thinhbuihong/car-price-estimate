@@ -11,6 +11,7 @@ module.exports = {
 				rejectUnauthorized: false
 			}
 		},
+		entities: ['**/*.entity.js'],
 		ssl: true
 	}),
 	...(process.env.NODE_ENV === 'test' &&
