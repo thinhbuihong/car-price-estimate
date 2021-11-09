@@ -59,9 +59,15 @@ export class AppModule {
         //   keys: [this.configService.get('COOKIE_KEY')],
         // }),
         session({
-          secret: this.configService.get('COOKIE_KEY'),
+          secret:
+            this.configService.get('COOKIE_KEY') || process.env.COOKIE_KEY,
           resave: false,
           saveUninitialized: false,
+          cookie: {
+            maxAge: 1000 * 60 * 60,
+            httpOnly: true,
+            // domain:'front end url '
+          },
         }),
       )
       .forRoutes('*');

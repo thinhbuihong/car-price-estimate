@@ -5,6 +5,10 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    // origin: 'front end url',
+    // credentials:true,
+  });
   // app.use(
   //   cookieSession({
   //     keys: ['asd'],
