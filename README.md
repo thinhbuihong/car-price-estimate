@@ -1,6 +1,5 @@
 #Car price estimate project
-https://carprice-estimate-thinh.herokuapp.com/
-<a href="https://carprice-estimate-thinh.herokuapp.com/" target="blank>Link priject</a>
+<a href="https://carprice-estimate-thinh.herokuapp.com/" target="blank">Link project</a>
 
 This is the project that I use to learn nestjs
 
