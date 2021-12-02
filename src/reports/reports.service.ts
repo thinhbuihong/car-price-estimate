@@ -31,17 +31,16 @@ export class ReportsService {
     return (
       this.repo
         .createQueryBuilder()
-        .select('AVG(price)', 'pricee')
+        .select('*')
         .where('make = :make', { make: estimateDto.make })
         // .andWhere('approved IS TRUE')
         .andWhere('model = :model', { model: estimateDto.model })
         .andWhere('lng - :lng BETWEEN -5 AND 5', { lng: estimateDto.lng })
         .andWhere('lat - :lat BETWEEN -5 AND 5', { lat: estimateDto.lat })
         .andWhere('year - :year BETWEEN -3 AND 3', { year: estimateDto.year })
-        .orderBy('ABS(mileage - :mileage)', 'DESC')
-        .setParameters({ mileage: estimateDto.mileage })
+        .orderBy(`ABS(mileage - ${estimateDto.mileage})`, 'DESC')
         .limit(3)
-        .getRawOne()
+        .getRawMany()
     );
   }
 }
