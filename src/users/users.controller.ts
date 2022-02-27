@@ -1,8 +1,10 @@
 import {
   Body,
+  CACHE_MANAGER,
   Controller,
   Delete,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Patch,
@@ -10,7 +12,10 @@ import {
   Query,
   Session,
   UseGuards,
+  Version,
 } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import { CronJob } from 'cron';
 import { AuthGuard } from '../guards/auth.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
@@ -19,9 +24,13 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { userDto } from './dtos/user.dto';
 import { User } from './entities/users.entity';
+import { TasksService } from './job/tasksService.job';
 import { UsersService } from './users.service';
 
-@Controller('auth')
+@Controller({
+  path: 'auth',
+  version: '1',
+})
 @Serialize(userDto)
 // @UseInterceptors(CurrentUserInterceptor)
 //docs cua nest dung ClassSeralizerInterceptor
@@ -31,8 +40,47 @@ export class UsersController {
   constructor(
     private userService: UsersService,
     private authService: AuthService,
+    private taskService: TasksService,
+    @Inject(CACHE_MANAGER) private cacheManage: Cache,
   ) {}
+  ///////////____________JOB
 
+  @Version('2')
+  @Get('/cache')
+  async cache(@Query('key') key: string) {
+    if (!key) return 'hello';
+
+    const value = await this.cacheManage.get(key);
+    if (!value) {
+      console.log('add to cache');
+      await this.cacheManage.set(key, 99, { ttl: 20000 });
+      return `add ${key} to cache`;
+    }
+
+    return value;
+  }
+
+  @Get('/stoplog')
+  stopLog() {
+    this.taskService.stopLog();
+  }
+
+  @Get('/newjob')
+  addJob(@Query('name') name: string, @Query('seconds') seconds: string) {
+    this.taskService.addCronJob(name, seconds);
+  }
+
+  @Get('/deletejob')
+  deleteJob(@Query('job') job: string) {
+    this.taskService.deleteCron(job);
+  }
+
+  @Get('/crons')
+  cronJobs() {
+    this.taskService.getCrons();
+  }
+
+  ///////////////////////////
   @Get('/whoami')
   @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {

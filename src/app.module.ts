@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
+import {
+  CacheModule,
+  MiddlewareConsumer,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -7,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import session from 'express-session';
+import { ScheduleModule } from '@nestjs/schedule';
 // const cookieSession = require('cookie-session');
 
 @Module({
@@ -16,6 +22,7 @@ import session from 'express-session';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRoot(),
+    ScheduleModule.forRoot(),
     //su dung env variable trong configmodule
     //typeorm cli need these options too
     //===============================
@@ -46,6 +53,7 @@ import session from 'express-session';
       provide: APP_PIPE,
       useValue: new ValidationPipe({
         whitelist: true,
+        transform: true,
       }),
     },
   ],

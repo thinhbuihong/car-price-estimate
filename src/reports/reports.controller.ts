@@ -1,5 +1,6 @@
 import {
   Body,
+  CacheInterceptor,
   Controller,
   Get,
   Param,
@@ -7,6 +8,7 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
@@ -21,6 +23,7 @@ import { GetEstimateDto } from './dtos/get-estimate.dto';
 import { Report } from './reports.entity';
 
 @Controller('reports')
+// @UseInterceptors(CacheInterceptor)
 export class ReportsController {
   constructor(private reportsService: ReportsService) {}
 
