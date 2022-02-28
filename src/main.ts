@@ -1,10 +1,14 @@
+import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { MyLogger } from './logger/mylogger';
 // const cookieSession = require('cookie-session');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'debug', 'log', 'verbose'],
+    bufferLogs: true,
+  });
   app.enableCors({
     // origin: 'front end url',
     // credentials:true,
@@ -23,6 +27,8 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI,
   });
+  app.useLogger(app.get(MyLogger));
+  // app.use(compression);
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

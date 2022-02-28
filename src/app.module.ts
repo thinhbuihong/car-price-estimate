@@ -1,20 +1,18 @@
-import {
-  CacheModule,
-  MiddlewareConsumer,
-  Module,
-  ValidationPipe,
-} from '@nestjs/common';
+import { BullModule } from '@nestjs/bull';
+import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_PIPE } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import session from 'express-session';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ReportsModule } from './reports/reports.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_PIPE } from '@nestjs/core';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import session from 'express-session';
-import { ScheduleModule } from '@nestjs/schedule';
-import { BullModule } from '@nestjs/bull';
 import { AudioModule } from './audio/audio.module';
+import { LogModule } from './logger/logger.module';
+import { OrderModule } from './order/order.module';
+import { ReportsModule } from './reports/reports.module';
+import { UsersModule } from './users/users.module';
 // const cookieSession = require('cookie-session');
 
 @Module({
@@ -31,6 +29,14 @@ import { AudioModule } from './audio/audio.module';
         port: 6379,
       },
     }),
+    EventEmitterModule.forRoot(),
+    // MulterModule.register({
+    //   storage: diskStorage({
+    //     destination: './files',
+    //     filename: editFileName,
+    //   }),
+    //   // fileFilter
+    // }),
     //su dung env variable trong configmodule
     //typeorm cli need these options too
     //===============================
@@ -54,6 +60,8 @@ import { AudioModule } from './audio/audio.module';
     UsersModule,
     ReportsModule,
     AudioModule,
+    LogModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [

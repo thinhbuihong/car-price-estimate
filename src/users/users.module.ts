@@ -7,7 +7,7 @@ import { User } from './entities/users.entity';
 import { AuthService } from './auth.service';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptors';
 import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
-import { TasksService } from './job/tasksService.job';
+import { TasksService } from './job/tasks.service';
 import { AudioModule } from '../audio/audio.module';
 
 @Module({

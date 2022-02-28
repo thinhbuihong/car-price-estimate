@@ -25,7 +25,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { userDto } from './dtos/user.dto';
 import { User } from './entities/users.entity';
-import { TasksService } from './job/tasksService.job';
+import { TasksService } from './job/tasks.service';
 import { UsersService } from './users.service';
 
 @Controller({
