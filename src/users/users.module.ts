@@ -8,9 +8,14 @@ import { AuthService } from './auth.service';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptors';
 import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
 import { TasksService } from './job/tasksService.job';
+import { AudioModule } from '../audio/audio.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), CacheModule.register()],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    CacheModule.register(),
+    AudioModule,
+  ],
   controllers: [UsersController],
   providers: [
     UsersService,

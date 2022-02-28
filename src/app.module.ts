@@ -13,6 +13,8 @@ import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import session from 'express-session';
 import { ScheduleModule } from '@nestjs/schedule';
+import { BullModule } from '@nestjs/bull';
+import { AudioModule } from './audio/audio.module';
 // const cookieSession = require('cookie-session');
 
 @Module({
@@ -23,6 +25,12 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     TypeOrmModule.forRoot(),
     ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     //su dung env variable trong configmodule
     //typeorm cli need these options too
     //===============================
@@ -45,6 +53,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     // }),
     UsersModule,
     ReportsModule,
+    AudioModule,
   ],
   controllers: [AppController],
   providers: [

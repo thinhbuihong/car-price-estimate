@@ -16,6 +16,7 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { CronJob } from 'cron';
+import { AudioService } from '../audio/audio.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
@@ -41,6 +42,7 @@ export class UsersController {
     private userService: UsersService,
     private authService: AuthService,
     private taskService: TasksService,
+    private audioService: AudioService,
     @Inject(CACHE_MANAGER) private cacheManage: Cache,
   ) {}
   ///////////____________JOB
@@ -80,7 +82,18 @@ export class UsersController {
     this.taskService.getCrons();
   }
 
-  ///////////////////////////
+  ///////////////////////////____QUEUES
+  @Get('/addJobQueue')
+  async addJobQueue() {
+    await this.audioService.addJob();
+  }
+
+  @Get('/addJobQueueWithname')
+  async addJobQueueWithName() {
+    await this.audioService.addJobWithName();
+  }
+
+  /////
   @Get('/whoami')
   @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
