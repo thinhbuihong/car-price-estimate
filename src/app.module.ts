@@ -3,12 +3,15 @@ import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import session from 'express-session';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AudioModule } from './audio/audio.module';
+import { Auth2Module } from './auth2/auth2.module';
+import { LocalStrategy } from './auth2/local.strategy';
 import { LogModule } from './logger/logger.module';
 import { OrderModule } from './order/order.module';
 import { ReportsModule } from './reports/reports.module';
@@ -30,6 +33,7 @@ import { UsersModule } from './users/users.module';
       },
     }),
     EventEmitterModule.forRoot(),
+    PassportModule,
     // MulterModule.register({
     //   storage: diskStorage({
     //     destination: './files',
@@ -62,6 +66,8 @@ import { UsersModule } from './users/users.module';
     AudioModule,
     LogModule,
     OrderModule,
+    Auth2Module,
+    // Users2Module,
   ],
   controllers: [AppController],
   providers: [
