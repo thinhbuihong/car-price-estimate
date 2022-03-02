@@ -10,11 +10,13 @@ export class Users2Service {
         userId: 1,
         username: 'john',
         password: 'changeme',
+        roles: ['admin'],
       },
       {
         userId: 2,
         username: 'maria',
         password: 'guess',
+        roles: ['user'],
       },
     ];
   }

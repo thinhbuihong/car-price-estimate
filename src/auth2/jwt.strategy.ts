@@ -15,7 +15,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload) {
     //passport verified the jwt(beartoekn) and decode to the json
-    return { userId: payload.sub, username: payload.username };
+    return {
+      userId: payload.sub,
+      username: payload.username,
+      roles: payload.roles,
+    };
     //attach to request.user
   }
 }

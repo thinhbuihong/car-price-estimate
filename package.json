@@ -43,6 +43,7 @@
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "express-session": "^1.17.2",
+    "helmet": "^5.0.2",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

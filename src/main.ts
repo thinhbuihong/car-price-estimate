@@ -1,5 +1,6 @@
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { MyLogger } from './logger/mylogger';
 // const cookieSession = require('cookie-session');
@@ -9,6 +10,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'debug', 'log', 'verbose'],
     bufferLogs: true,
   });
+  app.use(helmet);
   app.enableCors({
     // origin: 'front end url',
     // credentials:true,
