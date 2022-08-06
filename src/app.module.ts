@@ -11,12 +11,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AudioModule } from './audio/audio.module';
 import { Auth2Module } from './auth2/auth2.module';
-import { LocalStrategy } from './auth2/local.strategy';
 import { LogModule } from './logger/logger.module';
 import { OrderModule } from './order/order.module';
 import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
-// const cookieSession = require('cookie-session');
 
 @Module({
   imports: [
@@ -55,12 +53,6 @@ import { UsersModule } from './users/users.module';
     //     };
     //   },
     // }),
-    // TypeOrmModule.forRoot({
-    //   type: 'sqlite',
-    //   database: 'db.sqlite',
-    //   entities: [User, Report],
-    //   synchronize: true,
-    // }),
     UsersModule,
     ReportsModule,
     AudioModule,
@@ -86,9 +78,6 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
-        // cookieSession({
-        //   keys: [this.configService.get('COOKIE_KEY')],
-        // }),
         session({
           secret:
             this.configService.get('COOKIE_KEY') || process.env.COOKIE_KEY,

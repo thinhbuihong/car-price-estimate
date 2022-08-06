@@ -34,8 +34,10 @@ module.exports = {
 		synchronize: false,
 	}),
 
-	migrations: ["./dist/migration/*.js"],
+	//where to load migration file
+	migrations: ["./migration/*.js"],
 	"cli": {
+		//where to generate migration file => if ts then compiler to 
 		"migrationsDir": "migration"
 	},
 }

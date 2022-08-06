@@ -67,15 +67,15 @@ describe('AuthService', () => {
     await service.signup('asd@gmail.com', 'asd');
 
     try {
-      service.signup('asd@gmail.com', 'qwe');
+      await service.signup('asd@gmail.com', 'qwe');
     } catch (err) {
       expect(err).toBeDefined();
     }
   });
 
   it('signin sussesfully', async () => {
-    // await service.signup('asd2@gmail.com', 'asd');
-    // const user = await service.signin('asd2@gmail.com', 'asd');
-    // expect(user).toBeDefined();
+    await service.signup('asd2@gmail.com', 'asd');
+    const user = await service.signin('asd2@gmail.com', 'asd');
+    expect(user).toBeDefined();
   });
 });
