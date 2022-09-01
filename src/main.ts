@@ -10,7 +10,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'debug', 'log', 'verbose'],
     bufferLogs: true,
   });
-  app.use(helmet);
+  app.use(helmet());
   app.enableCors({
     // origin: 'front end url',
     // credentials:true,
